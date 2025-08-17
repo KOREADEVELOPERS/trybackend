@@ -5,7 +5,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")  // Frontend host ke liye CORS allow
+@CrossOrigin(origins = "https://tryregistration.vercel.app/")  // Frontend host ke liye CORS allow
 public class controller {
 
     private final userrepository userRepository;
