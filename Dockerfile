@@ -1,6 +1,5 @@
-
 # Step 1: Java 17 base image (build stage)
-FROM eclipse-temurin:17-jdk-alpine as builder
+FROM eclipse-temurin:17-jdk-alpine AS builder
 
 # Step 2: Maven wrapper और config copy करो
 WORKDIR /app
@@ -8,12 +7,12 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Step 3: Dependencies pre-download
-RUN ./mvnw dependency:go-offline
+# Step 3: Make mvnw executable and dependencies pre-download
+RUN chmod +x mvnw && ./mvnw dependency:go-offline
 
 # Step 4: Source code copy और build
 COPY src src
-RUN ./mvnw clean package -DskipTests
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 # Step 5: Final image बनाना
 FROM eclipse-temurin:17-jdk-alpine
